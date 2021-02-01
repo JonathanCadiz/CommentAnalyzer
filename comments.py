@@ -8,7 +8,7 @@ def comment_request(url):
 
     # print(response['items'])
     video_id = extract_video_id(url)
-    lis = recursive_get(video_id, 0)
+    lis = recursive_get(video_id)
     print(len(lis))
 
 
@@ -19,7 +19,7 @@ def extract_video_id(url):
     return video_id
 
 
-def recursive_get(video_id, token):
+def recursive_get(video_id, next_token=0):
     random_list = []
     api_service_name = "youtube"
     api_version = "v3"
@@ -30,16 +30,16 @@ def recursive_get(video_id, token):
 
     request = None
 
-    if token != 0:
+    if next_token != 0:
         request = youtube.commentThreads().list(
-            part="snippet",
+            part="snippet, replies",
             maxResults=100,
-            pageToken=token,
+            pageToken=next_token,
             videoId=video_id
         )
     else:
         request = youtube.commentThreads().list(
-            part="snippet",
+            part="snippet, replies",
             maxResults=100,
             videoId=video_id
         )
@@ -48,8 +48,21 @@ def recursive_get(video_id, token):
 
     for comment in response['items']:
         text = comment['snippet']['topLevelComment']['snippet']['textDisplay']
+        replies_list = []
+
+        if comment['snippet']['totalReplyCount'] > 0:
+            print("True")
+            print(comment['snippet']['totalReplyCount'])
+            # print(comment['replies']['comments'])
+            for reply in comment['replies']['comments']:
+                comment_reply = reply['snippet']['textDisplay']
+                replies_list.append(comment_reply)
+        else:
+            print("false")
+
         print(text)
-        random_list.append(text)
+        print(replies_list)
+        random_list.append((text, replies_list))
 
     if 'nextPageToken' in response:
         random_list += recursive_get(video_id, response['nextPageToken'])
