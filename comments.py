@@ -3,68 +3,91 @@ import googleapiclient.discovery
 import urllib.parse as urlparse
 
 
-def comment_request(url):
-    # os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
+class Comment:
+    def __init__(self, text, comment_id, comment_type, reply_count=0,
+                 like_count=0, published_time=None):
+        self.text = text
+        self.comment_id = comment_id
+        self.comment_type = comment_type
+        self.reply_count = reply_count
+        self.like_count = like_count
+        self.published_time = published_time
+        self.replies = []
 
-    # print(response['items'])
-    video_id = extract_video_id(url)
-    lis = recursive_get(video_id)
-    print(len(lis))
+    def add_reply(self, reply):
+        self.replies.append(reply)
 
 
-def extract_video_id(url):
-    url_data = urlparse.urlparse(url)
-    query = urlparse.parse_qs(url_data.query)
-    video_id = query["v"][0]
-    return video_id
-
-
-def recursive_get(video_id, next_token=0):
-    random_list = []
-    api_service_name = "youtube"
-    api_version = "v3"
-    DEVELOPER_KEY = os.environ.get("DEVELOPER_KEY")
-
-    youtube = googleapiclient.discovery.build(
-        api_service_name, api_version, developerKey=DEVELOPER_KEY)
-
-    request = None
-
-    if next_token != 0:
-        request = youtube.commentThreads().list(
-            part="snippet, replies",
-            maxResults=100,
-            pageToken=next_token,
-            videoId=video_id
-        )
-    else:
-        request = youtube.commentThreads().list(
-            part="snippet, replies",
-            maxResults=100,
-            videoId=video_id
-        )
+class VideoRequest:
+    def __init__(self, url):
+        self.url = url
+        self.video_id = self.__extract_id()
+        self.main_comments = []
+        self.all_comments = []
     
-    response = request.execute()
+    def __extract_id(self):
+        url_data = urlparse.urlparse(self.url)
+        query = urlparse.parse_qs(url_data.query)
+        video_id = query['v'][0]
+        return video_id
 
-    for comment in response['items']:
-        text = comment['snippet']['topLevelComment']['snippet']['textDisplay']
-        replies_list = []
+    def request_comments(self):
+        comment_list = []
+        all_comments_list = []
+        api_service_name = "youtube"
+        api_version = "v3"
+        DEVELOPER_KEY = os.environ.get("DEVELOPER_KEY")
 
-        if comment['snippet']['totalReplyCount'] > 0:
-            print("True")
-            print(comment['snippet']['totalReplyCount'])
-            # print(comment['replies']['comments'])
-            for reply in comment['replies']['comments']:
-                comment_reply = reply['snippet']['textDisplay']
-                replies_list.append(comment_reply)
-        else:
-            print("false")
+        youtube = googleapiclient.discovery.build(
+            api_service_name, api_version, developerKey=DEVELOPER_KEY)
 
-        print(text)
-        print(replies_list)
-        random_list.append((text, replies_list))
+        next_token = 0
 
-    if 'nextPageToken' in response:
-        random_list += recursive_get(video_id, response['nextPageToken'])
+        while True:
+            if next_token != 0:
+                request = youtube.commentThreads().list(
+                    part="snippet, replies",
+                    maxResults=100,
+                    pageToken=next_token,
+                    videoId=self.video_id
+                )
+            else:
+                request = youtube.commentThreads().list(
+                    part="snippet, replies",
+                    maxResults=100,
+                    videoId=self.video_id
+                )
+            response = request.execute()
+            for comment in response['items']:
+                text = comment['snippet']['topLevelComment']['snippet']['textDisplay']
+                comment_id = comment['snippet']['topLevelComment']['id']
+                comment_type = "top"
+                reply_count = comment['snippet']['totalReplyCount']
+                like_count = comment['snippet']['topLevelComment']['snippet']['likeCount']
+                published_time = comment['snippet']['topLevelComment']['snippet']['publishedAt']
 
-    return random_list
+                new_comment = Comment(text, comment_id, comment_type,
+                                      reply_count, like_count, published_time)
+
+                if new_comment.reply_count > 0:
+                    for reply in comment['replies']['comments']:
+                        reply_text = reply['snippet']['textDisplay']
+                        reply_id = reply['id']
+                        reply_type = "reply"
+                        reply_likes = reply['snippet']['likeCount']
+                        reply_time = reply['snippet']['publishedAt']
+                        reply_comment = Comment(reply_text, reply_id, reply_type,
+                                                like_count=reply_likes, published_time=reply_time)
+                        new_comment.replies.append(reply_comment)
+                        all_comments_list.append(reply_comment)
+
+                comment_list.append(new_comment)
+                all_comments_list.append(new_comment)
+
+            if 'nextPageToken' in response:
+                next_token = response['nextPageToken']
+            else:
+                break
+
+        self.main_comments = comment_list
+        self.all_comments = all_comments_list
