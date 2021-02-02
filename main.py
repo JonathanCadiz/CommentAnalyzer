@@ -5,14 +5,18 @@ import language_processing as lp
 def main():
     new_request = comments.VideoRequest(input("Please enter your video's URL\n"))
     new_request.request_comments()
-    text_list = []
+
     for comment in new_request.all_comments:
         print(comment.text)
-        text_list.append(comment.text)
-    print(len(new_request.all_comments))
-    text_string = ".".join(text_list)
-    print(text_string)
-    print(lp.extract_keywords(text_string))
+
+    processed = lp.LanguageProcessing(new_request.all_comments)
+    processed.add_unwanted(["video"])
+    processed.extract_keywords()
+    print(processed.words)
+    print(processed.nouns)
+    print(processed.adj)
+    print(processed.verbs)
+    print(processed.links)
 
 
 if __name__ == "__main__":
