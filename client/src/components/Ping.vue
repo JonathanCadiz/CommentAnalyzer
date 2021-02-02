@@ -1,6 +1,13 @@
 <template>
   <div class="container">
-    <button type="button" class="btn btn-primary">{{ msg }}</button>
+    <form>
+      <label>url</label>
+      <input v-model="req.url" id="url"/>
+      <label>key</label>
+      <input v-model="req.key" id="key"/>
+    </form>
+    <button class="btn btn-primary" @click.prevent="submitted">Submit!</button>
+    <p>{{ msg }}</p>
   </div>
 </template>
 
@@ -12,6 +19,10 @@ export default {
   data() {
     return {
       msg: '',
+      req: {
+        url: '',
+        key: '',
+      },
     };
   },
   methods: {
@@ -21,9 +32,19 @@ export default {
         .then((res) => {
           this.msg = res.data;
         })
-        .catch((error) => {
-          console.error(error);
+        .catch(() => {
         });
+    },
+    submitted() {
+      axios.post('http://localhost:5000/ping', {
+        url: this.req.url,
+        key: this.req.key,
+      })
+        .then((response) => {
+          console.log(response.data);
+          this.msg = response.data;
+        })
+        .catch();
     },
   },
   created() {
