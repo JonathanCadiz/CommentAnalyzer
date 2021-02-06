@@ -7,5 +7,6 @@
 <style>
 #app {
   margin: 0px;
+  background-image: linear-gradient(135deg, #ff4857, #FFC371);
 }
 </style>
