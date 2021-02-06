@@ -19,11 +19,12 @@ class Comment:
 
 
 class VideoRequest:
-    def __init__(self, url):
+    def __init__(self, url, key=None):
         self.url = url
         self.video_id = self.__extract_id()
         self.main_comments = []
         self.all_comments = []
+        self.key = key
     
     def __extract_id(self):
         url_data = urlparse.urlparse(self.url)
@@ -36,7 +37,10 @@ class VideoRequest:
         all_comments_list = []
         api_service_name = "youtube"
         api_version = "v3"
-        DEVELOPER_KEY = os.environ.get("DEVELOPER_KEY")
+        if self.key is None:
+            DEVELOPER_KEY = os.environ.get("DEVELOPER_KEY")
+        else:
+            DEVELOPER_KEY = self.key
 
         youtube = googleapiclient.discovery.build(
             api_service_name, api_version, developerKey=DEVELOPER_KEY)
