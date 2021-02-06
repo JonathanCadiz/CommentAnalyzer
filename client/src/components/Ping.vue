@@ -3,8 +3,6 @@
     <form>
       <label>url</label>
       <input v-model="req.url" id="url"/>
-      <label>key</label>
-      <input v-model="req.key" id="key"/>
     </form>
     <button class="btn btn-primary" @click.prevent="submitted">Submit!</button>
     <p>{{ msg }}</p>
