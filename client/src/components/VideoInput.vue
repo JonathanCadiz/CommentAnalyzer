@@ -13,19 +13,18 @@
 import axios from 'axios';
 
 export default {
-  name: 'Ping',
+  name: 'VideoInput',
   data() {
     return {
       msg: '',
       req: {
         url: '',
-        key: '',
       },
     };
   },
   methods: {
-    getMessage() {
-      const path = 'http://localhost:5000/ping';
+    getData() {
+      const path = 'http://localhost:5000/videorequest';
       axios.get(path)
         .then((res) => {
           this.msg = res.data;
@@ -34,9 +33,8 @@ export default {
         });
     },
     submitted() {
-      axios.post('http://localhost:5000/ping', {
+      axios.post('http://localhost:5000/videorequest', {
         url: this.req.url,
-        key: this.req.key,
       })
         .then((response) => {
           console.log(response.data);
@@ -46,7 +44,7 @@ export default {
     },
   },
   created() {
-    this.getMessage();
+    this.getData();
   },
 };
 </script>

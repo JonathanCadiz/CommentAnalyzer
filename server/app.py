@@ -19,13 +19,12 @@ with open('api.json') as f:
 api_key = data['api_key']
 
 
-@app.route('/ping', methods=['GET', 'POST'])
+@app.route('/videorequest', methods=['GET', 'POST'])
 def ping_pong():
     if request.method == "POST":
         response_object = {'status': 'success'}
         post_data = request.get_json()
         url = post_data.get('url')
-        key = post_data.get('key')
         new_request = comments.VideoRequest(url, api_key)
         new_request.request_comments()
 
@@ -47,7 +46,6 @@ def ping_pong():
         return jsonify(response_object)
     else:
         return jsonify("yes")
-        
 
 
 if __name__ == '__main__':
