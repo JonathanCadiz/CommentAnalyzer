@@ -1,5 +1,6 @@
 <template>
   <div>
+    <logo-button></logo-button>
     <request-section></request-section>
     <about-section></about-section>
   </div>
@@ -7,10 +8,11 @@
 
 <script>
 import AboutSection from './AboutSection.vue';
+import LogoButton from './Logo.vue';
 import RequestSection from './RequestSection.vue';
 
 export default {
-  components: { RequestSection, AboutSection },
+  components: { RequestSection, AboutSection, LogoButton },
   name: 'LandingPage',
 };
 </script>
