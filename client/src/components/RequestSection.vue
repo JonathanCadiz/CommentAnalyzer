@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <title-text id="title"></title-text>
-    <video-input id="videoInput"></video-input>
+    <video-input id="videoInput" @gotResponse="passResponse($event)"></video-input>
   </div>
 </template>
 
@@ -12,6 +12,11 @@ import VideoInput from './VideoInput.vue';
 export default {
   components: { VideoInput, TitleText },
   name: 'RequestSection',
+  methods: {
+    passResponse(data) {
+      this.$emit('passingData', data);
+    },
+  },
 };
 </script>
 

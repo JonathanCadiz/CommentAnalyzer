@@ -10,9 +10,6 @@
       <i class="fa fa-play"></i>
     </button>
     </div>
-    <div>
-      <p>{{ msg }}</p>
-    </div>
   </div>
 </template>
 
@@ -45,12 +42,12 @@ export default {
       })
         .then((response) => {
           this.msg = response.data;
+          this.$emit('gotResponse', this.msg);
         })
         .catch();
     },
   },
   created() {
-    this.getData();
   },
 };
 </script>

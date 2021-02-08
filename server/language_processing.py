@@ -56,24 +56,29 @@ class LanguageProcessing:
         link_list = [element for element in
                      re.split("\"|'|>|<|\\\\", self.text) if 'https' in element]
 
-        self.words = list(zip(
-            pd.Series(list(map(lambda word: word.lower(), word_list))).value_counts().index.tolist(),
-            pd.Series(list(map(lambda word: word.lower(), word_list))).value_counts().tolist()
-        ))
-        self.nouns = list(zip(
-            pd.Series(list(map(lambda word: word.lower(), noun_list))).value_counts().index.tolist(),
-            pd.Series(list(map(lambda word: word.lower(), noun_list))).value_counts().tolist()
-        ))
-        self.adj = list(zip(
-            pd.Series(list(map(lambda word: word.lower(), adj_list))).value_counts().index.tolist(),
-            pd.Series(list(map(lambda word: word.lower(), adj_list))).value_counts().tolist()
-        ))
-        self.verbs = list(zip(
-            pd.Series(list(map(lambda word: word.lower(), verb_list))).value_counts().index.tolist(),
-            pd.Series(list(map(lambda word: word.lower(), verb_list))).value_counts().tolist()
-        ))
-        self.links = list(zip(
-            pd.Series(link_list).value_counts().index.tolist(),
-            pd.Series(link_list).value_counts().tolist()
-        ))
+        word_names = pd.Series(list(map(lambda word: word.lower(), word_list))).value_counts().index.tolist()
+        word_values= pd.Series(list(map(lambda word: word.lower(), word_list))).value_counts().tolist()
+
+        noun_names = pd.Series(list(map(lambda word: word.lower(), noun_list))).value_counts().index.tolist()
+        noun_values = pd.Series(list(map(lambda word: word.lower(), noun_list))).value_counts().tolist()
+
+        adj_names = pd.Series(list(map(lambda word: word.lower(), adj_list))).value_counts().index.tolist()
+        adj_values = pd.Series(list(map(lambda word: word.lower(), adj_list))).value_counts().tolist()
+
+        verb_names = pd.Series(list(map(lambda word: word.lower(), verb_list))).value_counts().index.tolist()
+        verb_values = pd.Series(list(map(lambda word: word.lower(), verb_list))).value_counts().tolist()
+
+        link_names = pd.Series(link_list).value_counts().index.tolist()
+        link_values = pd.Series(link_list).value_counts().tolist()
+
+        self.words = [{"name": word_names[i], "value": word_values[i]}
+                      for i in range(len(word_names)) if word_values[i] > 1]
+        self.nouns = [{"name": noun_names[i], "value": noun_values[i]}
+                      for i in range(len(noun_names)) if noun_values[i] > 1]
+        self.adj = [{"name": adj_names[i], "value": adj_values[i]}
+                    for i in range(len(adj_names)) if adj_values[i] > 1]
+        self.verbs = [{"name": verb_names[i], "value": verb_values[i]}
+                      for i in range(len(verb_names)) if verb_values[i] > 1]
+        self.links = [{"name": link_names[i], "value": link_values[i]}
+                      for i in range(len(link_names))]
         self.entities = entity_list

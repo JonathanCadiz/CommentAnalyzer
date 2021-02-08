@@ -15,7 +15,10 @@
     "url-loader": "^4.1.1",
     "vue": "^2.6.11",
     "vue-goodshare": "^1.5.1",
-    "vue-router": "^3.2.0"
+    "vue-router": "^3.2.0",
+    "vue-wordcloud": "^1.1.1",
+    "zingchart": "^2.9.2",
+    "zingchart-vue": "^2.0.3"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
