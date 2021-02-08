@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import VideoInput from '../components/VideoInput.vue';
+import LandingPage from '../components/LandingPage.vue';
 
 Vue.use(Router);
 
@@ -11,7 +11,7 @@ export default new Router({
     {
       path: '',
       name: 'CommentAnalyzer',
-      component: VideoInput,
+      component: LandingPage,
     },
   ],
 });
