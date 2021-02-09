@@ -55,9 +55,9 @@ def ping_pong():
             "adjectives": processed.adj,
             "verbs": processed.verbs,
             "links": processed.links,
-            "videoInfo": info
         }
         response_object['data'] = new_dict
+        response_object['videoInfo'] = info
         print(response_object)
         return jsonify(response_object)
     else:
