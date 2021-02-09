@@ -38,7 +38,7 @@ export default {
   },
   computed: {
     displayedData() {
-      if (this.dataType === 'words') {
+      if (this.data.data[this.dataType].length > 200) {
         return this.data.data[this.dataType].slice(0, 200);
       }
       return this.data.data[this.dataType];
