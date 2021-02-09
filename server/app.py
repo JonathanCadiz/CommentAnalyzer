@@ -3,6 +3,7 @@ from flask_cors import CORS
 
 import comments
 import language_processing as lp
+import video_info as vi
 
 import json
 
@@ -28,6 +29,20 @@ def ping_pong():
         new_request = comments.VideoRequest(url, api_key)
         new_request.request_comments()
 
+        new_info_request = vi.VideoInfoRequest(url, api_key)
+        new_info_request.request_info()
+        info = {
+            'publishedAt': new_info_request.publishedAt,
+            'title': new_info_request.title,
+            'thumbnail': new_info_request.thumbnail,
+            'channel': new_info_request.channel,
+            'tags': new_info_request.tags,
+            'views': new_info_request.views,
+            'likes': new_info_request.likes,
+            'dislikes': new_info_request.dislikes,
+            'commentCount': new_info_request.commentCount
+        }
+
         for comment in new_request.all_comments:
             print(comment.text)
 
@@ -39,7 +54,8 @@ def ping_pong():
             "nouns": processed.nouns,
             "adjectives": processed.adj,
             "verbs": processed.verbs,
-            "links": processed.links
+            "links": processed.links,
+            "videoInfo": info
         }
         response_object['data'] = new_dict
         print(response_object)
