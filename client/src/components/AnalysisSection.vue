@@ -1,6 +1,6 @@
 <template>
   <div>
-    <video-info></video-info>
+    <video-info :data="data['videoInfo']"></video-info>
     <cloud-section id="cloud" :data="data"></cloud-section>
   </div>
 </template>

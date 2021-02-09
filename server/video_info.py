@@ -50,7 +50,7 @@ class VideoInfoRequest:
 
         self.publishedAt = details['publishedAt']
         self.title = details['title']
-        self.thumbnail = details['thumbnails']['default']['url']
+        self.thumbnail = details['thumbnails']['high']['url']
         self.channel = details['channelTitle']
         self.tags = details['tags']
 
