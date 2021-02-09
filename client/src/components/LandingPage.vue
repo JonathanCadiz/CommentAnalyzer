@@ -2,7 +2,7 @@
   <div>
     <logo-button></logo-button>
     <request-section @passingData="saveData($event)"></request-section>
-    <analysis-section v-if="data != {}" :data="commentData"></analysis-section>
+    <analysis-section v-if="'data' in commentData" :data="commentData"></analysis-section>
     <about-section></about-section>
   </div>
 </template>

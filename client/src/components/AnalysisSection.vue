@@ -1,11 +1,13 @@
 <template>
   <div>
+    <video-info></video-info>
     <cloud-section id="cloud" :data="data"></cloud-section>
   </div>
 </template>
 
 <script>
 import CloudSection from './CloudSection.vue';
+import VideoInfo from './VideoInfo.vue';
 
 export default {
   name: 'AnalysisSection',
@@ -15,6 +17,7 @@ export default {
   },
   components: {
     CloudSection,
+    VideoInfo,
   },
   props: {
     data: {

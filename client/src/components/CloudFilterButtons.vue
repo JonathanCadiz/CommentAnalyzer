@@ -25,8 +25,10 @@ export default {
   methods: {
     selectButton(index) {
       const buttonList = document.getElementsByTagName('button');
+      const buttons = [0, 'words', 'nouns', 'adjectives', 'verbs'];
       buttonList.forEach((button) => { button.classList.remove('selected'); });
       buttonList[index].classList.add('selected');
+      this.$emit('filtered', buttons[index]);
     },
   },
 };

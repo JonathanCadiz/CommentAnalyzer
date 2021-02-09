@@ -60,7 +60,7 @@ div {
 ol {
   margin: 0;
   padding-left: 20px;
-  width: 30%;
+  width: 25%;
 }
 
 h2 {
