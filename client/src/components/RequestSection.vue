@@ -1,7 +1,9 @@
 <template>
   <div class="container">
     <title-text id="title"></title-text>
-    <video-input id="videoInput" @gotResponse="passResponse($event)"></video-input>
+    <video-input id="videoInput"
+    @gotResponse="passResponse($event)"
+    @startLoading="passLoading()"></video-input>
   </div>
 </template>
 
@@ -16,6 +18,9 @@ export default {
     passResponse(data) {
       this.$emit('passingData', data);
     },
+    passLoading() {
+      this.$emit('passingLoading');
+    },
   },
 };
 </script>
@@ -23,8 +28,8 @@ export default {
 <style scoped>
   #videoInput {
     width: 65%;
-    margin-top: 60px;
-    margin-bottom: 60px;
+    margin-top: 80px;
+    margin-bottom: 80px;
   }
 
   .container {

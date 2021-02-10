@@ -25,6 +25,7 @@ class VideoRequest:
         self.main_comments = []
         self.all_comments = []
         self.key = key
+        self.top_comment = {}
     
     def __extract_id(self):
         url_data = urlparse.urlparse(self.url)
@@ -35,6 +36,10 @@ class VideoRequest:
     def request_comments(self):
         comment_list = []
         all_comments_list = []
+        top_comment = {
+            "text": '',
+            "likes": 0
+        }
         api_service_name = "youtube"
         api_version = "v3"
         if self.key is None:
@@ -63,7 +68,7 @@ class VideoRequest:
                 )
             response = request.execute()
             for comment in response['items']:
-                text = comment['snippet']['topLevelComment']['snippet']['textDisplay']
+                text = comment['snippet']['topLevelComment']['snippet']['textOriginal']
                 comment_id = comment['snippet']['topLevelComment']['id']
                 comment_type = "top"
                 reply_count = comment['snippet']['totalReplyCount']
@@ -75,7 +80,7 @@ class VideoRequest:
 
                 if new_comment.reply_count > 0:
                     for reply in comment['replies']['comments']:
-                        reply_text = reply['snippet']['textDisplay']
+                        reply_text = reply['snippet']['textOriginal']
                         reply_id = reply['id']
                         reply_type = "reply"
                         reply_likes = reply['snippet']['likeCount']
@@ -85,6 +90,12 @@ class VideoRequest:
                         new_comment.replies.append(reply_comment)
                         all_comments_list.append(reply_comment)
 
+                if new_comment.like_count > top_comment['likes']:
+                    top_comment = {
+                        "text": new_comment.text,
+                        "likes": new_comment.like_count
+                    }
+
                 comment_list.append(new_comment)
                 all_comments_list.append(new_comment)
 
@@ -93,5 +104,6 @@ class VideoRequest:
             else:
                 break
 
+        self.top_comment = top_comment
         self.main_comments = comment_list
         self.all_comments = all_comments_list

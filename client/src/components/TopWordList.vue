@@ -4,19 +4,19 @@
     <div class="row">
       <ol>
         <li v-for="word in wordData.slice(0,10)" :key="word.name">
-          <span class="left">{{ word.name }}</span>
+          <span class="left">{{ word.name.charAt(0).toUpperCase() + word.name.slice(1) }}</span>
           <span class="right">{{ '- ' + word.value }}</span>
         </li>
       </ol>
       <ol start="11">
         <li v-for="word in wordData.slice(10,20)" :key="word.name">
-          <span class="left">{{ word.name }}</span>
+          <span class="left">{{ word.name.charAt(0).toUpperCase() + word.name.slice(1) }}</span>
           <span class="right">{{ '- ' + word.value }}</span>
         </li>
       </ol>
       <ol start="21">
         <li v-for="word in wordData.slice(20,30)" :key="word.name">
-          <span class="left">{{ word.name }}</span>
+          <span class="left">{{ word.name.charAt(0).toUpperCase() + word.name.slice(1) }}</span>
           <span class="right">{{ '- ' + word.value }}</span>
         </li>
       </ol>
@@ -60,7 +60,7 @@ div {
 ol {
   margin: 0;
   padding-left: 20px;
-  width: 30%;
+  width: 25%;
 }
 
 h2 {

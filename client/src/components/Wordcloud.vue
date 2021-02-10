@@ -12,8 +12,6 @@
 </template>
 
 <script>
-// import 'zingchart/es6';
-// import zingchartVue from 'zingchart-vue';
 import wordcloud from 'vue-wordcloud';
 
 export default {
@@ -40,7 +38,7 @@ export default {
 
 <style scoped>
 div {
-  width: 92%;
+  width: 100%;
   margin: auto;
   margin-top: 15px;
   padding: 0;

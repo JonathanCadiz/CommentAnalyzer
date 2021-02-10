@@ -51,8 +51,9 @@ class LanguageProcessing:
                      token.lemma_ not in self.unwanted and
                      token.pos_ == "VERB"
                      and not exclude.findall(token.lemma_) and len(token.lemma_) > 1]
-        entity_list = [(entity.text, entity.label_) for entity in doc.ents
+        entity_list = [entity.text for entity in doc.ents
                        if len(entity.text) > 1]
+        print(entity_list)
         link_list = [element for element in
                      re.split("\"|'|>|<|\\\\", self.text) if 'https' in element]
 
@@ -68,6 +69,9 @@ class LanguageProcessing:
         verb_names = pd.Series(list(map(lambda word: word.lower(), verb_list))).value_counts().index.tolist()
         verb_values = pd.Series(list(map(lambda word: word.lower(), verb_list))).value_counts().tolist()
 
+        entity_names = pd.Series(list(map(lambda word: word.lower(), entity_list))).value_counts().index.tolist()
+        entity_values = pd.Series(list(map(lambda word: word.lower(), entity_list))).value_counts().tolist()
+
         link_names = pd.Series(link_list).value_counts().index.tolist()
         link_values = pd.Series(link_list).value_counts().tolist()
 
@@ -81,4 +85,5 @@ class LanguageProcessing:
                       for i in range(len(verb_names)) if verb_values[i] > 1]
         self.links = [{"name": link_names[i], "value": link_values[i]}
                       for i in range(len(link_names))]
-        self.entities = entity_list
+        self.entities = [{"name": entity_names[i], "value": entity_values[i]}
+                      for i in range(len(entity_names))]

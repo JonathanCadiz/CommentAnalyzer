@@ -2,10 +2,10 @@
   <div class="trans-container">
     <div class="row">
       <h1>What're People Saying?</h1>
-      <filter-buttons></filter-buttons>
+      <filter-buttons @filtered="filterData"></filter-buttons>
     </div>
-    <word-cloud id="cloud" :word-data="data['data']['words']"></word-cloud>
-    <top-word-list :word-data="data['data']['words']"></top-word-list>
+    <word-cloud id="cloud" :word-data="displayedData"></word-cloud>
+    <top-word-list :word-data="displayedData"></top-word-list>
   </div>
 </template>
 
@@ -18,6 +18,7 @@ export default {
   name: 'CloudSection',
   data() {
     return {
+      dataType: 'words',
     };
   },
   components: {
@@ -28,6 +29,19 @@ export default {
   props: {
     data: {
       type: Object,
+    },
+  },
+  methods: {
+    filterData(value) {
+      this.dataType = value;
+    },
+  },
+  computed: {
+    displayedData() {
+      if (this.data.data[this.dataType].length > 200) {
+        return this.data.data[this.dataType].slice(0, 200);
+      }
+      return this.data.data[this.dataType];
     },
   },
 };
