@@ -42,8 +42,6 @@ def ping_pong():
             'dislikes': new_info_request.dislikes,
             'commentCount': new_info_request.commentCount
         }
-        for comment in new_request.all_comments:
-            print(comment.text)
 
         processed = lp.LanguageProcessing(new_request.all_comments)
         processed.add_unwanted(["video"])
@@ -54,10 +52,12 @@ def ping_pong():
             "adjectives": processed.adj,
             "verbs": processed.verbs,
             "links": processed.links,
+            "entities": processed.entities,
             "topComment": new_request.top_comment,
         }
         response_object['data'] = new_dict
         response_object['videoInfo'] = info
+        print(processed.entities)
         return jsonify(response_object)
     else:
         return jsonify("yes")
