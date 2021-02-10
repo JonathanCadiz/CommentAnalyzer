@@ -37,6 +37,7 @@ export default {
         });
     },
     submitted() {
+      this.$emit('startLoading');
       axios.post('http://localhost:5000/videorequest', {
         url: this.req.url,
       })
