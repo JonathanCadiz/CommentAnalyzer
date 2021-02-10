@@ -1,15 +1,13 @@
 <template>
   <div class="container">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <div>
-      <form>
-        <input v-model="req.url" id="url"
-        placeholder="Enter the link to a YouTube video to get started!"/>
-      </form>
-    <button class="btn btn-primary" @click.prevent="submitted">
-      <i class="fa fa-play"></i>
-    </button>
-    </div>
+    <form>
+      <input v-model="req.url" id="url"
+      placeholder="Enter the link to a YouTube video to get started!"/>
+      <button class="btn btn-primary" @click.prevent="submitted" type="submit">
+        <i class="fa fa-play"></i>
+      </button>
+    </form>
   </div>
 </template>
 
