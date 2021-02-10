@@ -48,6 +48,8 @@ h2 {
 
 img {
   height: 100%;
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .row {
