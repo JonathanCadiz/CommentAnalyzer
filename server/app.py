@@ -42,7 +42,6 @@ def ping_pong():
             'dislikes': new_info_request.dislikes,
             'commentCount': new_info_request.commentCount
         }
-
         for comment in new_request.all_comments:
             print(comment.text)
 
@@ -55,10 +54,10 @@ def ping_pong():
             "adjectives": processed.adj,
             "verbs": processed.verbs,
             "links": processed.links,
+            "topComment": new_request.top_comment,
         }
         response_object['data'] = new_dict
         response_object['videoInfo'] = info
-        print(response_object)
         return jsonify(response_object)
     else:
         return jsonify("yes")
