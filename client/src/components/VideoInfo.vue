@@ -40,6 +40,7 @@ export default {
 .trans-container {
   background-color: #ffd7cd49;
   padding: 60px 0px 60px 0px;
+  margin: 0;
 }
 
 h2 {

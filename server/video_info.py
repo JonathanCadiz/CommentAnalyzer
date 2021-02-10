@@ -52,5 +52,6 @@ class VideoInfoRequest:
         self.title = details['title']
         self.thumbnail = details['thumbnails']['high']['url']
         self.channel = details['channelTitle']
-        self.tags = details['tags']
+        if 'tags' in details:
+            self.tags = details['tags']
 

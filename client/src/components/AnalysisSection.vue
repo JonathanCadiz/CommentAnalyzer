@@ -1,12 +1,14 @@
 <template>
   <div>
     <video-info :data="data['videoInfo']"></video-info>
+    <key-metrics :data="data"></key-metrics>
     <cloud-section id="cloud" :data="data"></cloud-section>
   </div>
 </template>
 
 <script>
 import CloudSection from './CloudSection.vue';
+import KeyMetrics from './KeyMetrics.vue';
 import VideoInfo from './VideoInfo.vue';
 
 export default {
@@ -18,6 +20,7 @@ export default {
   components: {
     CloudSection,
     VideoInfo,
+    KeyMetrics,
   },
   props: {
     data: {
