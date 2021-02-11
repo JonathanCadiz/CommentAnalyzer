@@ -1,8 +1,8 @@
 <template>
   <div>
-    <a href="https://www.google.com"><img :src="image1"/></a>
-    <a href="https://www.google.com"><img :src="image2"/></a>
-    <a href="https://www.google.com"><img :src="image3"/></a>
+    <a href="https://www.linkedin.com/in/jonathan-cadiz/"><img :src="image1"/></a>
+    <a href="https://github.com/JonathanCadiz"><img :src="image2"/></a>
+    <a href="https://www.linkedin.com/in/jonathan-cadiz/"><img :src="image3"/></a>
   </div>
 </template>
 

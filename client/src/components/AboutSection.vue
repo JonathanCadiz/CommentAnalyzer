@@ -4,10 +4,11 @@
     <div class="about-text">
       <p>
         Commint extracts the YouTube video id from your url,
-        and uses that id to request data from <a href="https://www.google.com">YouTube’s data API</a>.
+        and uses that id to request data from <a href="https://developers.google.com/youtube/v3">
+        YouTube’s data API</a>.
         It’ll loop through all of your comments until every single comment,
         thread, and reply is saved, and then use Natural Language Processing
-        (with <a href="https://www.google.com">spaCy</a>) to remove irrelevant words and find keywords, nouns,
+        (with <a href="https://spacy.io/">spaCy</a>) to remove irrelevant words and find keywords, nouns,
         adjectives, and verbs. Commint will also find what videos and websites
         your viewers link to, letting you gain insight to what timestamps of your
         video are most commonly referenced or what sites your audience thinks is
@@ -16,7 +17,7 @@
       </p>
       <p>
         This project is actually open source, as well! Check out the source code on
-        <a href="https://www.google.com">GitHub</a>!
+        <a href="https://github.com/JonathanCadiz/CommentAnalyzer">GitHub</a>!
       </p>
     </div>
     <h1>And Who Made This?</h1>
