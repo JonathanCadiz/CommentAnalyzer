@@ -9,6 +9,7 @@
 #app {
   margin: 0px;
   background-image: linear-gradient(135deg, #ff4857, #FFC371);
+  background-size: cover;
   font-family: 'Roboto', sans-serif;
 }
 </style>
