@@ -47,6 +47,11 @@ export default {
       this.loading = true;
     },
   },
+  metaInfo: {
+    title: 'Commint | See Your Feedback',
+    author: 'Jonathan Cadiz',
+    description: 'Commint lets you to see the data from comments on your youtube videos!',
+  },
 };
 </script>
 

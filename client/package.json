@@ -17,6 +17,7 @@
     "vue": "^2.6.11",
     "vue-goodshare": "^1.5.1",
     "vue-loading-spinner": "^1.0.11",
+    "vue-meta": "^2.4.0",
     "vue-router": "^3.2.0",
     "vue-svg-gauge": "^1.2.1",
     "vue-wordcloud": "^1.1.1",
